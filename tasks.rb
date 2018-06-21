@@ -58,15 +58,16 @@ while (opcao_escolhida != SAIR ) do
   elsif opcao_escolhida == BUSCAR_TAREFA
     print'Insira o texto que voce deseja buscar: '
     texto_busca = gets().chomp().upcase()
-    tarefas.each do |tarefa|
-      if tarefa[:descricao].upcase.include? texto_busca
-        #DUVIDA: porque quando eu rodo aqui a tarefa encontrada vem depois do imprime_tarefa?
-        puts"Tarefa encontrada: #{ imprime_tarefa(tarefa) }"
-      else
-        #DUVIDA: Porque repete pela quantidade de tarefas inseridas?
-        puts'Tarefa nao encontrada.'
+
+    tarefas_encontradas = []
+
+    tarefas_encontradas = tarefas.select do |tarefa|
+      tarefa[:descricao].upcase.include? texto_busca
       end
-  end
+
+        puts "#{tarefas_encontradas.length} tarefas entcontradas"
+        imprime_tarefaID(tarefas_encontradas)
+
   elsif opcao_escolhida == MARCAR_FEITA
     #1- Imorimir todas as tarefas, exibindo o ID
     puts('Escolha qual tarefa deseja marcar como feita:')
